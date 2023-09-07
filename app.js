@@ -9,7 +9,7 @@ const session = require("express-session");
 
 const connectWithRetry = () => {
   mongoose.connect(
-    "mongodb+srv://hasanbocek:MyHy197619@cloudapp.fawey.mongodb.net/HasanBocek?retryWrites=true&w=majority",
+    "",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -23,7 +23,7 @@ const connectWithRetry = () => {
   db.on("error", (err) => {
     console.log(`Database error: ${err}`);
     mongoose.connect(
-      "mongodb+srv://hasanbocek:MyHy197619@cloudapp.fawey.mongodb.net/HasanBocek?retryWrites=true&w=majority",
+      "",
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
