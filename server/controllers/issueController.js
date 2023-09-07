@@ -1,7 +1,7 @@
 const Issue = require("../models/Issue");
 const multer = require("multer");
 const { ImgurClient } = require("imgur");
-const clientId = "389fc18c27d34e4";
+const clientId = "";
 const client = new ImgurClient({ clientId: clientId });
 
 const inMemoryStorage = multer.memoryStorage();
