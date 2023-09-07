@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>Rapor - Hasan Böcek</title>
+	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css?h=8b2627b3d62f886b12f3300859b08b69">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+	<link rel="stylesheet" href="assets/css/styles.min.css?h=905d5975472f384d7e908c9ebfd866da">
+</head>
+
+<body id="page-top">
+	<div id="wrapper">
+		<nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark"
+			style="background: #16ba96;">
+			<div class="container-fluid d-flex flex-column p-0"><a
+					class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+					<div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-graduation-cap"></i></div>
+					<div class="sidebar-brand-text mx-3"><span>Hasan Böcek</span></div>
+				</a>
+				<hr class="sidebar-divider my-0">
+				<ul class="navbar-nav text-light" id="accordionSidebar">
+					<li class="nav-item"><a class="nav-link active" href="/"><i
+								class="fas fa-tachometer-alt"></i><span>Rapor</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="/message"><i
+								class="far fa-comments"></i><span>Mesajlar</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="/assignment"><i
+								class="fas fa-table"></i><span>Ödevler</span></a></li>
+				</ul>
+				<div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
+						id="sidebarToggle" type="button"></button></div>
+			</div>
+		</nav>
+		<div class="d-flex flex-column" id="content-wrapper">
+			<div id="content">
+				<%- include("./components/header.ejs") %>
+					<div class="container-fluid">
+						<div class="d-sm-flex justify-content-between align-items-center mb-4">
+							<h3 class="text-dark mb-0">Rapor</h3><a
+								class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/api/table/pdf"
+								style="border-style: none;"><i
+									class="fas fa-download fa-sm text-white-50"></i>&nbsp;Raporu İndir</a>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-xl-4 mb-4">
+								<div class="card shadow border-start-primary py-2" style="border-style: none;">
+									<div class="card-body">
+										<div class="row align-items-center no-gutters">
+											<div class="col me-2">
+												<div class="text-uppercase text-primary fw-bold text-xs mb-1">
+													<span>Toplam
+														(haftalık)</span>
+												</div>
+												<div class="text-dark fw-bold h5 mb-0"><span><%-
+															totalAssignmentsForCurrentWeek %></span>
+												</div>
+											</div>
+											<div class="col-auto"><svg xmlns="http://www.w3.org/2000/svg"
+													viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor"
+													class="fa-2x text-gray-300"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+													<path
+														d="M448 336v-288C448 21.49 426.5 0 400 0H96C42.98 0 0 42.98 0 96v320c0 53.02 42.98 96 96 96h320c17.67 0 32-14.33 32-31.1c0-11.72-6.607-21.52-16-27.1v-81.36C441.8 362.8 448 350.2 448 336zM143.1 128h192C344.8 128 352 135.2 352 144C352 152.8 344.8 160 336 160H143.1C135.2 160 128 152.8 128 144C128 135.2 135.2 128 143.1 128zM143.1 192h192C344.8 192 352 199.2 352 208C352 216.8 344.8 224 336 224H143.1C135.2 224 128 216.8 128 208C128 199.2 135.2 192 143.1 192zM384 448H96c-17.67 0-32-14.33-32-32c0-17.67 14.33-32 32-32h288V448z">
+													</path>
+												</svg></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-xl-4 mb-4">
+								<div class="card shadow border-start-success py-2" style="border-style: none;">
+									<div class="card-body">
+										<div class="row align-items-center no-gutters">
+											<div class="col me-2">
+												<div class="text-uppercase text-success fw-bold text-xs mb-1">
+													<span>Toplam
+														(tüm)</span>
+												</div>
+												<div class="text-dark fw-bold h5 mb-0"><span><%-
+															totalAssignmentsForAllWeeks %></span></div>
+											</div>
+											<div class="col-auto"><i class="fas fa-book fa-2x text-gray-300"></i></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 col-xl-4 mb-4">
+								<div class="card shadow border-start-info py-2" style="border-style: none;">
+									<div class="card-body">
+										<div class="row align-items-center no-gutters">
+											<div class="col me-2">
+												<div class="text-uppercase text-info fw-bold text-xs mb-1">
+													<span>Ödev</span>
+												</div>
+												<div class="row g-0 align-items-center">
+													<div class="col-auto">
+														<div class="text-dark fw-bold h5 mb-0 me-3"><span><%-
+																	assignmentCompletionRate %>%</span>
+														</div>
+													</div>
+													<div class="col">
+														<div class="progress progress-sm">
+															<div class="progress-bar bg-info" aria-valuenow="0"
+																aria-valuemin="0" aria-valuemax="100"
+																style="width:  <%= assignmentCompletionRate %>%">
+																<span class="visually-hidden">0%</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-auto"><i
+													class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div><!-- Start: Chart -->
+						<div class="row">
+							<div class="col-lg-12 mb-4" id="table-section">
+								<div class="card shadow mb-4" style="border-style: none;">
+									<div class="card-header py-3">
+										<h6 class="fw-bold m-0">Rapor</h6>
+									</div>
+									<div class="card-body">
+										<div class="row">
+
+											<div class="col-sm-6 col-md-4 col-lg-2">
+												<div class="card"
+													style="margin-bottom: 10px;border-style: none;background: rgba(255,255,255,0);">
+													<div class="card-header"
+														style="background: #d4f4ff;border-style: none;margin-top: 10px;">
+														<h5 class="text-center mb-0" style="color: rgb(93,95,103);">
+															Pazartesi</h5>
+													</div>
+													<% cellsInCurrentWeek.forEach((cell)=> { if(cell.day !== 1) return%>
+														<div class="card-body"
+															style="padding: 0px;background: rgba(255,255,255,0);">
+															<div class="card"
+																style="border-style: none;background: rgba(255,255,255,0);">
+																<% if(cell.lesson==1) { %>
+																	<div class="card-body"
+																		style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																		<h4 class="card-title"
+																			style="font-size: 19.727px;color: rgb(133,135,150);">
+																			Matematik</h4>
+																		<p class="card-text"
+																			style="color: #8A8C8C;line-height: 20px;">
+																			<%- cell.exerciseStats.total %>
+																				Soru<br><%- cell.exerciseStats.correct
+																					%>
+																					Doğru<br><%-
+																						cell.exerciseStats.wrong %>
+																						Yanlış<br><%-
+																							cell.exerciseStats.empty %>
+																							Boş
+																		</p>
+																	</div>
+																	<% }%>
+																		<% if(cell.lesson==2) { %>
+																			<div class="card-body"
+																				style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																				<h4 class="card-title"
+																					style="font-size: 19.727px;color: rgb(133,135,150);">
+																					Fizik</h4>
+																				<p class="card-text"
+																					style="color: #8A8C8C;line-height: 20px;">
+																					<%- cell.exerciseStats.total %>
+																						Soru<br><%-
+																							cell.exerciseStats.correct
+																							%>
+																							Doğru<br><%-
+																								cell.exerciseStats.wrong
+																								%> Yanlış<br><%-
+																									cell.exerciseStats.empty
+																									%> Boş
+																				</p>
+																			</div>
+																			<% }%>
+																				<% if(cell.lesson==3) { %>
+																					<div class="card-body"
+																						style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																						<h4 class="card-title"
+																							style="font-size: 19.727px;color: rgb(133,135,150);">
+																							Kimya</h4>
+																						<p class="card-text"
+																							style="color: #8A8C8C;line-height: 20px;">
+																							<%- cell.exerciseStats.total
+																								%>
+																								Soru<br><%-
+																									cell.exerciseStats.correct
+																									%>
+																									Doğru<br><%-
+																										cell.exerciseStats.wrong
+																										%> Yanlış<br><%-
+																											cell.exerciseStats.empty
+																											%> Boş
+																						</p>
+																					</div>
+																					<% }%>
+																						<% if(cell.lesson==4) { %>
+																							<div class="card-body"
+																								style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																								<h4 class="card-title"
+																									style="font-size: 19.727px;color: rgb(133,135,150);">
+																									Geomteri</h4>
+																								<p class="card-text"
+																									style="color: #8A8C8C;line-height: 20px;">
+																									<%- cell.exerciseStats.total
+																										%>
+																										Soru<br><%-
+																											cell.exerciseStats.correct
+																											%>
+																											Doğru<br><%-
+																												cell.exerciseStats.wrong
+																												%>
+																												Yanlış<br><%-
+																													cell.exerciseStats.empty
+																													%>
+																													Boş
+																								</p>
+																							</div>
+																							<% }%>
+																								<% if(cell.lesson==5) {
+																									%>
+																									<div class="card-body"
+																										style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																										<h4 class="card-title"
+																											style="font-size: 19.727px;color: rgb(133,135,150);">
+																											Türkçe</h4>
+																										<p class="card-text"
+																											style="color: #8A8C8C;line-height: 20px;">
+																											<%- cell.exerciseStats.total
+																												%>
+																												Soru<br><%-
+																													cell.exerciseStats.correct
+																													%>
+																													Doğru<br><%-
+																														cell.exerciseStats.wrong
+																														%>
+																														Yanlış<br><%-
+																															cell.exerciseStats.empty
+																															%>
+																															Boş
+																										</p>
+																									</div>
+																									<% }%>
+															</div>
+														</div>
+														<%}) %>
+
+												</div>
+											</div>
+											
+											<div class="col-sm-6 col-md-4 col-lg-2">
+												<div class="card"
+													style="margin-bottom: 10px;border-style: none;background: rgba(255,255,255,0);">
+													<div class="card-header"
+														style="background: #d4f4ff;border-style: none;margin-top: 10px;">
+														<h5 class="text-center mb-0" style="color: rgb(93,95,103);">
+															Salı
+														</h5>
+													</div>
+													<% cellsInCurrentWeek.forEach((cell)=> { if(cell.day !== 2) return%>
+														<div class="card-body"
+															style="padding: 0px;background: rgba(255,255,255,0);">
+															<div class="card"
+																style="border-style: none;background: rgba(255,255,255,0);">
+																<% if(cell.lesson==1) { %>
+																	<div class="card-body"
+																		style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																		<h4 class="card-title"
+																			style="font-size: 19.727px;color: rgb(133,135,150);">
+																			Matematik</h4>
+																		<p class="card-text"
+																			style="color: #8A8C8C;line-height: 20px;">
+																			<%- cell.exerciseStats.total %>
+																				Soru<br><%- cell.exerciseStats.correct
+																					%>
+																					Doğru<br><%-
+																						cell.exerciseStats.wrong %>
+																						Yanlış<br><%-
+																							cell.exerciseStats.empty %>
+																							Boş
+																		</p>
+																	</div>
+																	<% }%>
+																		<% if(cell.lesson==2) { %>
+																			<div class="card-body"
+																				style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																				<h4 class="card-title"
+																					style="font-size: 19.727px;color: rgb(133,135,150);">
+																					Fizik</h4>
+																				<p class="card-text"
+																					style="color: #8A8C8C;line-height: 20px;">
+																					<%- cell.exerciseStats.total %>
+																						Soru<br><%-
+																							cell.exerciseStats.correct
+																							%>
+																							Doğru<br><%-
+																								cell.exerciseStats.wrong
+																								%> Yanlış<br><%-
+																									cell.exerciseStats.empty
+																									%> Boş
+																				</p>
+																			</div>
+																			<% }%>
+																				<% if(cell.lesson==3) { %>
+																					<div class="card-body"
+																						style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																						<h4 class="card-title"
+																							style="font-size: 19.727px;color: rgb(133,135,150);">
+																							Kimya</h4>
+																						<p class="card-text"
+																							style="color: #8A8C8C;line-height: 20px;">
+																							<%- cell.exerciseStats.total
+																								%>
+																								Soru<br><%-
+																									cell.exerciseStats.correct
+																									%>
+																									Doğru<br><%-
+																										cell.exerciseStats.wrong
+																										%> Yanlış<br><%-
+																											cell.exerciseStats.empty
+																											%> Boş
+																						</p>
+																					</div>
+																					<% }%>
+																						<% if(cell.lesson==4) { %>
+																							<div class="card-body"
+																								style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																								<h4 class="card-title"
+																									style="font-size: 19.727px;color: rgb(133,135,150);">
+																									Geomteri</h4>
+																								<p class="card-text"
+																									style="color: #8A8C8C;line-height: 20px;">
+																									<%- cell.exerciseStats.total
+																										%>
+																										Soru<br><%-
+																											cell.exerciseStats.correct
+																											%>
+																											Doğru<br><%-
+																												cell.exerciseStats.wrong
+																												%>
+																												Yanlış<br><%-
+																													cell.exerciseStats.empty
+																													%>
+																													Boş
+																								</p>
+																							</div>
+																							<% }%>
+																								<% if(cell.lesson==5) {
+																									%>
+																									<div class="card-body"
+																										style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																										<h4 class="card-title"
+																											style="font-size: 19.727px;color: rgb(133,135,150);">
+																											Türkçe</h4>
+																										<p class="card-text"
+																											style="color: #8A8C8C;line-height: 20px;">
+																											<%- cell.exerciseStats.total
+																												%>
+																												Soru<br><%-
+																													cell.exerciseStats.correct
+																													%>
+																													Doğru<br><%-
+																														cell.exerciseStats.wrong
+																														%>
+																														Yanlış<br><%-
+																															cell.exerciseStats.empty
+																															%>
+																															Boş
+																										</p>
+																									</div>
+																									<% }%>
+															</div>
+														</div>
+														<%}) %>
+												</div>
+											</div>
+											<div class="col-sm-6 col-md-4 col-lg-2">
+												<div class="card"
+													style="margin-bottom: 10px;border-style: none;background: rgba(255,255,255,0);">
+													<div class="card-header"
+														style="background: #d4f4ff;border-style: none;margin-top: 10px;">
+														<h5 class="text-center mb-0" style="color: rgb(93,95,103);">
+															Çarşamba
+														</h5>
+													</div>
+													<% cellsInCurrentWeek.forEach((cell)=> { if(cell.day !== 3) return%>
+														<div class="card-body"
+															style="padding: 0px;background: rgba(255,255,255,0);">
+															<div class="card"
+																style="border-style: none;background: rgba(255,255,255,0);">
+																<% if(cell.lesson==1) { %>
+																	<div class="card-body"
+																		style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																		<h4 class="card-title"
+																			style="font-size: 19.727px;color: rgb(133,135,150);">
+																			Matematik</h4>
+																		<p class="card-text"
+																			style="color: #8A8C8C;line-height: 20px;">
+																			<%- cell.exerciseStats.total %>
+																				Soru<br><%- cell.exerciseStats.correct
+																					%>
+																					Doğru<br><%-
+																						cell.exerciseStats.wrong %>
+																						Yanlış<br><%-
+																							cell.exerciseStats.empty %>
+																							Boş
+																		</p>
+																	</div>
+																	<% }%>
+																		<% if(cell.lesson==2) { %>
+																			<div class="card-body"
+																				style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																				<h4 class="card-title"
+																					style="font-size: 19.727px;color: rgb(133,135,150);">
+																					Fizik</h4>
+																				<p class="card-text"
+																					style="color: #8A8C8C;line-height: 20px;">
+																					<%- cell.exerciseStats.total %>
+																						Soru<br><%-
+																							cell.exerciseStats.correct
+																							%>
+																							Doğru<br><%-
+																								cell.exerciseStats.wrong
+																								%> Yanlış<br><%-
+																									cell.exerciseStats.empty
+																									%> Boş
+																				</p>
+																			</div>
+																			<% }%>
+																				<% if(cell.lesson==3) { %>
+																					<div class="card-body"
+																						style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																						<h4 class="card-title"
+																							style="font-size: 19.727px;color: rgb(133,135,150);">
+																							Kimya</h4>
+																						<p class="card-text"
+																							style="color: #8A8C8C;line-height: 20px;">
+																							<%- cell.exerciseStats.total
+																								%>
+																								Soru<br><%-
+																									cell.exerciseStats.correct
+																									%>
+																									Doğru<br><%-
+																										cell.exerciseStats.wrong
+																										%> Yanlış<br><%-
+																											cell.exerciseStats.empty
+																											%> Boş
+																						</p>
+																					</div>
+																					<% }%>
+																						<% if(cell.lesson==4) { %>
+																							<div class="card-body"
+																								style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																								<h4 class="card-title"
+																									style="font-size: 19.727px;color: rgb(133,135,150);">
+																									Geomteri</h4>
+																								<p class="card-text"
+																									style="color: #8A8C8C;line-height: 20px;">
+																									<%- cell.exerciseStats.total
+																										%>
+																										Soru<br><%-
+																											cell.exerciseStats.correct
+																											%>
+																											Doğru<br><%-
+																												cell.exerciseStats.wrong
+																												%>
+																												Yanlış<br><%-
+																													cell.exerciseStats.empty
+																													%>
+																													Boş
+																								</p>
+																							</div>
+																							<% }%>
+																								<% if(cell.lesson==5) {
+																									%>
+																									<div class="card-body"
+																										style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																										<h4 class="card-title"
+																											style="font-size: 19.727px;color: rgb(133,135,150);">
+																											Türkçe</h4>
+																										<p class="card-text"
+																											style="color: #8A8C8C;line-height: 20px;">
+																											<%- cell.exerciseStats.total
+																												%>
+																												Soru<br><%-
+																													cell.exerciseStats.correct
+																													%>
+																													Doğru<br><%-
+																														cell.exerciseStats.wrong
+																														%>
+																														Yanlış<br><%-
+																															cell.exerciseStats.empty
+																															%>
+																															Boş
+																										</p>
+																									</div>
+																									<% }%>
+															</div>
+														</div>
+														<%}) %>
+												</div>
+											</div>
+											<div class="col-sm-6 col-md-4 col-lg-2">
+												<div class="card"
+													style="margin-bottom: 10px;border-style: none;background: rgba(255,255,255,0);">
+													<div class="card-header"
+														style="background: #d4f4ff;border-style: none;margin-top: 10px;">
+														<h5 class="text-center mb-0" style="color: rgb(93,95,103);">
+															Perşembe
+														</h5>
+													</div>
+													<% cellsInCurrentWeek.forEach((cell)=> { if(cell.day !== 4) return%>
+														<div class="card-body"
+															style="padding: 0px;background: rgba(255,255,255,0);">
+															<div class="card"
+																style="border-style: none;background: rgba(255,255,255,0);">
+																<% if(cell.lesson==1) { %>
+																	<div class="card-body"
+																		style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																		<h4 class="card-title"
+																			style="font-size: 19.727px;color: rgb(133,135,150);">
+																			Matematik</h4>
+																		<p class="card-text"
+																			style="color: #8A8C8C;line-height: 20px;">
+																			<%- cell.exerciseStats.total %>
+																				Soru<br><%- cell.exerciseStats.correct
+																					%>
+																					Doğru<br><%-
+																						cell.exerciseStats.wrong %>
+																						Yanlış<br><%-
+																							cell.exerciseStats.empty %>
+																							Boş
+																		</p>
+																	</div>
+																	<% }%>
+																		<% if(cell.lesson==2) { %>
+																			<div class="card-body"
+																				style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																				<h4 class="card-title"
+																					style="font-size: 19.727px;color: rgb(133,135,150);">
+																					Fizik</h4>
+																				<p class="card-text"
+																					style="color: #8A8C8C;line-height: 20px;">
+																					<%- cell.exerciseStats.total %>
+																						Soru<br><%-
+																							cell.exerciseStats.correct
+																							%>
+																							Doğru<br><%-
+																								cell.exerciseStats.wrong
+																								%> Yanlış<br><%-
+																									cell.exerciseStats.empty
+																									%> Boş
+																				</p>
+																			</div>
+																			<% }%>
+																				<% if(cell.lesson==3) { %>
+																					<div class="card-body"
+																						style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																						<h4 class="card-title"
+																							style="font-size: 19.727px;color: rgb(133,135,150);">
+																							Kimya</h4>
+																						<p class="card-text"
+																							style="color: #8A8C8C;line-height: 20px;">
+																							<%- cell.exerciseStats.total
+																								%>
+																								Soru<br><%-
+																									cell.exerciseStats.correct
+																									%>
+																									Doğru<br><%-
+																										cell.exerciseStats.wrong
+																										%> Yanlış<br><%-
+																											cell.exerciseStats.empty
+																											%> Boş
+																						</p>
+																					</div>
+																					<% }%>
+																						<% if(cell.lesson==4) { %>
+																							<div class="card-body"
+																								style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																								<h4 class="card-title"
+																									style="font-size: 19.727px;color: rgb(133,135,150);">
+																									Geomteri</h4>
+																								<p class="card-text"
+																									style="color: #8A8C8C;line-height: 20px;">
+																									<%- cell.exerciseStats.total
+																										%>
+																										Soru<br><%-
+																											cell.exerciseStats.correct
+																											%>
+																											Doğru<br><%-
+																												cell.exerciseStats.wrong
+																												%>
+																												Yanlış<br><%-
+																													cell.exerciseStats.empty
+																													%>
+																													Boş
+																								</p>
+																							</div>
+																							<% }%>
+																								<% if(cell.lesson==5) {
+																									%>
+																									<div class="card-body"
+																										style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																										<h4 class="card-title"
+																											style="font-size: 19.727px;color: rgb(133,135,150);">
+																											Türkçe</h4>
+																										<p class="card-text"
+																											style="color: #8A8C8C;line-height: 20px;">
+																											<%- cell.exerciseStats.total
+																												%>
+																												Soru<br><%-
+																													cell.exerciseStats.correct
+																													%>
+																													Doğru<br><%-
+																														cell.exerciseStats.wrong
+																														%>
+																														Yanlış<br><%-
+																															cell.exerciseStats.empty
+																															%>
+																															Boş
+																										</p>
+																									</div>
+																									<% }%>
+															</div>
+														</div>
+														<%}) %>
+												</div>
+											</div>
+											<div class="col-sm-6 col-md-4 col-lg-2">
+												<div class="card"
+													style="margin-bottom: 10px;border-style: none;background: rgba(255,255,255,0);">
+													<div class="card-header"
+														style="background: #d4f4ff;border-style: none;margin-top: 10px;">
+														<h5 class="text-center mb-0" style="color: rgb(93,95,103);">
+															Cuma
+														</h5>
+													</div>
+													<% cellsInCurrentWeek.forEach((cell)=> { if(cell.day !== 5) return%>
+														<div class="card-body"
+															style="padding: 0px;background: rgba(255,255,255,0);">
+															<div class="card"
+																style="border-style: none;background: rgba(255,255,255,0);">
+																<% if(cell.lesson==1) { %>
+																	<div class="card-body"
+																		style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																		<h4 class="card-title"
+																			style="font-size: 19.727px;color: rgb(133,135,150);">
+																			Matematik</h4>
+																		<p class="card-text"
+																			style="color: #8A8C8C;line-height: 20px;">
+																			<%- cell.exerciseStats.total %>
+																				Soru<br><%- cell.exerciseStats.correct
+																					%>
+																					Doğru<br><%-
+																						cell.exerciseStats.wrong %>
+																						Yanlış<br><%-
+																							cell.exerciseStats.empty %>
+																							Boş
+																		</p>
+																	</div>
+																	<% }%>
+																		<% if(cell.lesson==2) { %>
+																			<div class="card-body"
+																				style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																				<h4 class="card-title"
+																					style="font-size: 19.727px;color: rgb(133,135,150);">
+																					Fizik</h4>
+																				<p class="card-text"
+																					style="color: #8A8C8C;line-height: 20px;">
+																					<%- cell.exerciseStats.total %>
+																						Soru<br><%-
+																							cell.exerciseStats.correct
+																							%>
+																							Doğru<br><%-
+																								cell.exerciseStats.wrong
+																								%> Yanlış<br><%-
+																									cell.exerciseStats.empty
+																									%> Boş
+																				</p>
+																			</div>
+																			<% }%>
+																				<% if(cell.lesson==3) { %>
+																					<div class="card-body"
+																						style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																						<h4 class="card-title"
+																							style="font-size: 19.727px;color: rgb(133,135,150);">
+																							Kimya</h4>
+																						<p class="card-text"
+																							style="color: #8A8C8C;line-height: 20px;">
+																							<%- cell.exerciseStats.total
+																								%>
+																								Soru<br><%-
+																									cell.exerciseStats.correct
+																									%>
+																									Doğru<br><%-
+																										cell.exerciseStats.wrong
+																										%> Yanlış<br><%-
+																											cell.exerciseStats.empty
+																											%> Boş
+																						</p>
+																					</div>
+																					<% }%>
+																						<% if(cell.lesson==4) { %>
+																							<div class="card-body"
+																								style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																								<h4 class="card-title"
+																									style="font-size: 19.727px;color: rgb(133,135,150);">
+																									Geomteri</h4>
+																								<p class="card-text"
+																									style="color: #8A8C8C;line-height: 20px;">
+																									<%- cell.exerciseStats.total
+																										%>
+																										Soru<br><%-
+																											cell.exerciseStats.correct
+																											%>
+																											Doğru<br><%-
+																												cell.exerciseStats.wrong
+																												%>
+																												Yanlış<br><%-
+																													cell.exerciseStats.empty
+																													%>
+																													Boş
+																								</p>
+																							</div>
+																							<% }%>
+																								<% if(cell.lesson==5) {
+																									%>
+																									<div class="card-body"
+																										style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																										<h4 class="card-title"
+																											style="font-size: 19.727px;color: rgb(133,135,150);">
+																											Türkçe</h4>
+																										<p class="card-text"
+																											style="color: #8A8C8C;line-height: 20px;">
+																											<%- cell.exerciseStats.total
+																												%>
+																												Soru<br><%-
+																													cell.exerciseStats.correct
+																													%>
+																													Doğru<br><%-
+																														cell.exerciseStats.wrong
+																														%>
+																														Yanlış<br><%-
+																															cell.exerciseStats.empty
+																															%>
+																															Boş
+																										</p>
+																									</div>
+																									<% }%>
+															</div>
+														</div>
+														<%}) %>
+												</div>
+											</div>
+											<div class="col-sm-6 col-md-4 col-lg-2">
+												<div class="card"
+													style="border-style: none;background: rgba(255,255,255,0);">
+													<div class="card-header"
+														style="background: #d4f4ff;border-style: none;margin-top: 10px;">
+														<h5 class="text-center mb-0" style="color: rgb(93,95,103);">
+															Cumartesi</h5>
+													</div>
+													<% cellsInCurrentWeek.forEach((cell)=> { if(cell.day !== 6) return%>
+														<div class="card-body"
+															style="padding: 0px;background: rgba(255,255,255,0);">
+															<div class="card"
+																style="border-style: none;background: rgba(255,255,255,0);">
+																<% if(cell.lesson==1) { %>
+																	<div class="card-body"
+																		style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																		<h4 class="card-title"
+																			style="font-size: 19.727px;color: rgb(133,135,150);">
+																			Matematik</h4>
+																		<p class="card-text"
+																			style="color: #8A8C8C;line-height: 20px;">
+																			<%- cell.exerciseStats.total %>
+																				Soru<br><%- cell.exerciseStats.correct
+																					%>
+																					Doğru<br><%-
+																						cell.exerciseStats.wrong %>
+																						Yanlış<br><%-
+																							cell.exerciseStats.empty %>
+																							Boş
+																		</p>
+																	</div>
+																	<% }%>
+																		<% if(cell.lesson==2) { %>
+																			<div class="card-body"
+																				style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																				<h4 class="card-title"
+																					style="font-size: 19.727px;color: rgb(133,135,150);">
+																					Fizik</h4>
+																				<p class="card-text"
+																					style="color: #8A8C8C;line-height: 20px;">
+																					<%- cell.exerciseStats.total %>
+																						Soru<br><%-
+																							cell.exerciseStats.correct
+																							%>
+																							Doğru<br><%-
+																								cell.exerciseStats.wrong
+																								%> Yanlış<br><%-
+																									cell.exerciseStats.empty
+																									%> Boş
+																				</p>
+																			</div>
+																			<% }%>
+																				<% if(cell.lesson==3) { %>
+																					<div class="card-body"
+																						style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																						<h4 class="card-title"
+																							style="font-size: 19.727px;color: rgb(133,135,150);">
+																							Kimya</h4>
+																						<p class="card-text"
+																							style="color: #8A8C8C;line-height: 20px;">
+																							<%- cell.exerciseStats.total
+																								%>
+																								Soru<br><%-
+																									cell.exerciseStats.correct
+																									%>
+																									Doğru<br><%-
+																										cell.exerciseStats.wrong
+																										%> Yanlış<br><%-
+																											cell.exerciseStats.empty
+																											%> Boş
+																						</p>
+																					</div>
+																					<% }%>
+																						<% if(cell.lesson==4) { %>
+																							<div class="card-body"
+																								style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																								<h4 class="card-title"
+																									style="font-size: 19.727px;color: rgb(133,135,150);">
+																									Geomteri</h4>
+																								<p class="card-text"
+																									style="color: #8A8C8C;line-height: 20px;">
+																									<%- cell.exerciseStats.total
+																										%>
+																										Soru<br><%-
+																											cell.exerciseStats.correct
+																											%>
+																											Doğru<br><%-
+																												cell.exerciseStats.wrong
+																												%>
+																												Yanlış<br><%-
+																													cell.exerciseStats.empty
+																													%>
+																													Boş
+																								</p>
+																							</div>
+																							<% }%>
+																								<% if(cell.lesson==5) {
+																									%>
+																									<div class="card-body"
+																										style="border-style: none;margin-top: 3px;background: #d4f4ff;padding-top: 5px;padding-bottom: 5px;">
+																										<h4 class="card-title"
+																											style="font-size: 19.727px;color: rgb(133,135,150);">
+																											Türkçe</h4>
+																										<p class="card-text"
+																											style="color: #8A8C8C;line-height: 20px;">
+																											<%- cell.exerciseStats.total
+																												%>
+																												Soru<br><%-
+																													cell.exerciseStats.correct
+																													%>
+																													Doğru<br><%-
+																														cell.exerciseStats.wrong
+																														%>
+																														Yanlış<br><%-
+																															cell.exerciseStats.empty
+																															%>
+																															Boş
+																										</p>
+																									</div>
+																									<% }%>
+															</div>
+														</div>
+														<%}) %>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			<footer class="bg-white sticky-footer">
+				<div class="container my-auto">
+					<div class="text-center my-auto copyright"><span>Copyright © Hasan Böcek 2023</span></div>
+				</div>
+			</footer>
+		</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/script.min.js?h=4d952d21517087db850f0bbc41a815ca"></script>
+</body>
+
+</html>

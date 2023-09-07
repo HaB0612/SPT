@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand bg-white shadow mb-4 topbar static-top navbar-light">
+    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop"
+            type="button"><i class="fas fa-bars"></i></button>
+        <ul class="navbar-nav flex-nowrap ms-auto">
+            <li class="nav-item dropdown no-arrow mx-1">
+                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false"
+                        data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">5+</span><i
+                            class="fas fa-bell fa-fw"></i></a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                        <h6 class="dropdown-header">ödev merkezi</h6>
+                        <% var arr=["Matematik", "Fizik" , "Kimya" , "Geometri" , "Türkçe" ]; %>
+                            <% for (let i=0; i < Math.min(5, Assignments.length); i++) { %><a
+                                    class="dropdown-item d-flex align-items-center" href="/assignment">
+                                    <div><span class="small text-gray-500"><% var tarih = new Date(Assignments[i].timestamp); %>
+    
+                                        <% var ayAdlari = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]; %>
+                                        <% var gun = tarih.getDate(); %>
+                                        <% var ay = ayAdlari[tarih.getMonth()]; %>
+                                        <% var yil = tarih.getFullYear(); %>
+                                        
+                                        <%= gun %> <%= ay %>, <%= yil %></span>
+                                        <p>Yeni bir <%= arr[Assignments[i].lesson - 1] %> ödevi eklendi.</p>
+                                    </div>
+                                </a>
+                                <% } %><a class="dropdown-item text-center small text-gray-500" href="/assignment">Bütün
+                                        Ödevleri Göster</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item dropdown no-arrow mx-1">
+                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false"
+                        data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">5</span><i
+                            class="fas fa-envelope fa-fw"></i></a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                        <h6 class="dropdown-header">Mesaj merkezi</h6>
+                        <% for (let i=0; i < Math.min(5, Messages.length); i++) {%>
+                            <a class="dropdown-item d-flex align-items-center" href="/message">
+
+                                <div class="dropdown-list-image me-3"><img class="rounded-circle"
+                                        src="<%- Messages[i].senderData[0].profilePictureURL %>">
+                                </div>
+
+                                <div class="fw-bold">
+                                    <div class="text-truncate"><span><%- Messages[i].content %></span></div>
+                                    <p class="small text-gray-500 mb-0"><%- Messages[i].senderData[0].username %></p>
+                                </div>
+
+
+                            </a>
+                            <% } %><a class="dropdown-item text-center small text-gray-500" href="/message">Bütün
+                                    Mesajları Göster</a>
+                    </div>
+                </div>
+                <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown">
+                </div>
+            </li>
+            <div class="d-none d-sm-block topbar-divider"></div>
+            <li class="nav-item dropdown no-arrow"><a class="nav-link" href="#"><span
+                        class="d-none d-lg-inline me-2 text-gray-600 small"><%- loggedInUser.username %></span><img
+                        class="border rounded-circle img-profile" src="<%- loggedInUser.profilePictureURL %>"></a>
+            </li>
+        </ul>
+    </div>
+</nav>

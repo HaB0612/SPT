@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Table - Hasan Böcek</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css?h=8b2627b3d62f886b12f3300859b08b69">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="assets/css/styles.min.css?h=905d5975472f384d7e908c9ebfd866da">
+</head>
+
+<body id="page-top" class="modal-open">
+    <div id="wrapper">
+        <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark"
+            style="background: #16ba96;">
+            <div class="container-fluid d-flex flex-column p-0"><a
+                    class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>Hasan Böcek</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link" href="/"><i
+                                class="fas fa-tachometer-alt"></i><span>Rapor</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/message"><i
+                                class="far fa-comments"></i><span>Mesajlar</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/assignment"><i
+                                class="fas fa-table"></i><span>Ödevler</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
+                        id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div id="message-absolute"
+            class="text-center mt-3" style="position:absolute; z-index:5; right: 10px;"></div>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <%- include("./components/header.ejs") %>
+                    <div class="container-fluid">
+                        <h3 class="text-dark mb-4">Mesajlar</h3>
+                        <div class="row">
+                            <div class="col-xxl-12">
+                                <div class="card shadow">
+                                    <div class="card-header py-3">
+                                        <p class="text-primary m-0 fw-bold">Mesajlar</p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="d-flex" id="some-message" style="background: rgba(0,0,0,0);">
+                                                <form style="width: 100%;" id="messageForm"
+                                                    action="/api/message/message" method="POST">
+                                                    <div class="row">
+                                                        <div class="col-lg-10 col-xl-10" style="margin-bottom: 10px;">
+                                                            <textarea id="messageArea"
+                                                                class="form-control form-control-sm"
+                                                                style="width: 100%;max-height: 250px;"></textarea>
+                                                        </div>
+                                                        <div class="col-lg-2 col-xl-2"><button class="btn btn-primary"
+                                                                type="submit" style="width: 100%;">Gönder</button></div>
+                                                    </div>
+                                                </form>
+                                                <div id="message" class="text-center mt-3"></div>
+                                            </div>
+                                        </div>
+                                        <% for (let i=0; i < Messages.length; i++) {%>
+                                            <div class="col-md-12">
+                                                <div class="d-flex" id="some-message"
+                                                    style="background: rgba(0,0,0,0);">
+                                                    <div class="row" style="width: 100% !important;">
+                                                        <div
+                                                            class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-1 col-xxl-1 offset-xl-0">
+                                                            <img class="rounded-circle d-block"
+                                                                src="<%- Messages[i].senderData[0].profilePictureURL %>"
+                                                                style="width: 50px;height: 50px;margin-top: 10px;">
+                                                        </div>
+                                                        <div
+                                                            class="col-md-12 col-lg-12 col-xl-11 col-xxl-11 offset-md-0">
+                                                            <div class="dropdown no-arrow"><button
+                                                                    class="btn btn-link btn-sm dropdown-toggle"
+                                                                    aria-expanded="false" data-bs-toggle="dropdown"
+                                                                    type="button" style="float: right;"><i
+                                                                        class="fas fa-ellipsis-v text-gray-400"></i></button>
+                                                                <div class="dropdown-menu dropdown-menu-end shadow animated--fade-in"
+                                                                    style="background: #ffffff;color: rgb(133, 135, 150);">
+                                                                    <h6 class="dropdown-header text-center">
+                                                                        <strong>Mesaj
+                                                                            <%= Messages.length - i %>
+                                                                        </strong>
+                                                                    </h6><a class="dropdown-item"
+                                                                        onclick="openModal('<%- Messages[i]._id %>')"
+                                                                        href="#">Düzenle</a><a class="dropdown-item"
+                                                                        href="#" onclick="deleteMessage('<%- Messages[i]._id %>')">Sil</a>
+                                                                </div>
+                                                            </div><a href="#" 
+                                                                style="text-decoration: none;"><%-
+                                                                    Messages[i].senderData[0].username %></a><a
+                                                                style="float: right;text-decoration: none;color: rgb(99,99,99);margin-right: 10px;"><%- Messages[i].timestamp.toLocaleDateString("tr-TR", {
+                                                                    day: "numeric" , month: "long" , year:"numeric"}) %></a>
+                                                            <p><%- Messages[i].content %></p>
+                                                        </div>
+                                                    </div>
+                                                </div>  
+                                            </div>
+                                            <div class="modal fade show" role="dialog" tabindex="-1"
+                                                id="<%- Messages[i]._id %>">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Mesaj Düzenle</h4><button
+                                                                class="btn-close"
+                                                                onclick="closeModal('<%- Messages[i]._id %>')"
+                                                                type="button" aria-label="Close"
+                                                                data-bs-dismiss="modal"></button>
+                                                        </div>
+                                                        <form id="messageEditForm-<%- Messages[i]._id %>">
+                                                            <div class="modal-body">
+                                                                <p>Mesaj <%= Messages.length - i%>
+                                                                </p>
+                                                                <div class="container">
+                                                                    <div class="row">
+                                                                        <div class="col">
+
+                                                                            <div class="row">
+                                                                                <div class="col-xl-12">
+                                                                                    <h6>Mesaj</h6>
+                                                                                </div>
+                                                                                <div class="col-xl-12"><textarea
+                                                                                        class="form-control"
+                                                                                        style="width: 100%;min-height: 65px;max-height: 100px;"
+                                                                                        id="messageEditArea-<%- Messages[i]._id %>"><%- Messages[i].content %></textarea>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="message-<%- Messages[i]._id %>"
+                                                                        class="text-center mt-3"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer"><button
+                                                                    onclick="closeModal('<%- Messages[i]._id %>')"
+                                                                    class="btn btn-light" type="button"
+                                                                    data-bs-dismiss="modal">Kapat</button><button
+                                                                    class="btn btn-primary"
+                                                                    type="submit">Kaydet</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                document.getElementById('messageEditForm-<%- Messages[i]._id %>').addEventListener('submit', function (e) {
+                                                    e.preventDefault();
+
+                                                    const newMessage = document.getElementById('messageEditArea-<%- Messages[i]._id %>').value;
+                                                    axios.put('/api/message/message', { messageID: "<%- Messages[i]._id %>", content: newMessage })
+                                                        .then(function (response) {
+                                                            if (response.data.error === false) {
+
+                                                                setTimeout(function () {
+                                                                    window.location.href = '/message';
+                                                                }, 500);
+                                                            } else {
+                                                                document.getElementById('message-<%- Messages[i]._id %>').innerHTML = `<div class="alert alert-danger">${response.data.message}</div>`;
+                                                            }
+                                                        })
+                                                        .catch(function (error) {
+                                                            console.error('Hata:', error);
+                                                        });
+                                                });
+
+                                               
+                                                function deleteMessage(id) {
+                                                    axios.delete('/api/message/message/' + id)
+                                                        .then(function (response) {
+                                                            if (response.data.error === false) {
+                                                                setTimeout(function () {
+                                                                    window.location.href = '/message';
+                                                                }, 500);
+                                                            } else {
+                                                                document.getElementById('message-absolute').innerHTML = `<div class="alert alert-danger">${response.data.message}</div>`;
+                                                            }
+                                                        })
+                                                        .catch(function (error) {
+                                                            console.error('Hata:', error);
+                                                        });
+                                                }
+                                            </script>
+                                            <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © Hasan Böcek 2023</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+
+        <script>
+            function openModal(id) {
+                document.getElementById(id).style.display = "block";
+
+            }
+            function closeModal(id) {
+                document.getElementById(id).style.display = "none"
+            }
+        </script>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+
+        document.getElementById('messageForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const message = document.getElementById('messageArea').value;
+
+            axios.post('/api/message/message', { message: message })
+                .then(function (response) {
+                    if (response.data.error === false) {
+
+                        setTimeout(function () {
+                            window.location.href = '/message';
+                        }, 100);
+                    } else {
+                        document.getElementById('message').innerHTML = `<div class="alert alert-danger">${response.data.message}</div>`;
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Hata:', error);
+                });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/script.min.js?h=4d952d21517087db850f0bbc41a815ca"></script>
+</body>
+
+</html>
